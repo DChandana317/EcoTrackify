@@ -1,0 +1,50 @@
+@import "tailwindcss";
+/* Ecotrackify shared styles (required by product brief) */
+:root {
+  font-family: 'Inter', 'Roboto', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 400;
+  background-color: #f4f7f5;
+  color: #1a1c1a;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f4f7f5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.auth-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #e8f5e9, transparent 60%),
+    radial-gradient(circle at bottom right, #e3f2fd, transparent 50%),
+    #f4f7f5;
+  padding: 2rem;
+}
+
+.auth-card {
+  width: min(500px, 100%);
+  border-radius: 24px !important;
+}
+
+.MuiCard-root {
+  border-radius: 20px;
+}
+
+.MuiButton-root:focus-visible,
+.MuiTextField-root input:focus-visible {
+  outline: 2px solid #00c853;
+  outline-offset: 2px;
+}
+
+* {
+  box-sizing: border-box;
+}
