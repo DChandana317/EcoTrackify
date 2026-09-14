@@ -6,7 +6,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "start": "cross-env NODE_ENV=production node src/server.js",
+    "start": "node src/server.js",
     "lint": "eslint \"src/**/*.js\"",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "test:watch": "npm test -- --watch",
