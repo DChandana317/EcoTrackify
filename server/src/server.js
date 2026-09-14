@@ -42,12 +42,40 @@ const gracefulShutdown = async (signal) => {
   });
 };
 
+// const start = async () => {
+//   try {
+//     await connectDb();
+//     agendaInstance = await startAgenda();
+
+//     server.listen(env.port, '0.0.0.0', () => {
+//       console.log(`🚀 API ready on port ${env.port}`);
+//     });
+
+//     server.on('error', (error) => {
+//       if (error.code === 'EADDRINUSE') {
+//         console.error(`❌ Port ${env.port} is already in use.`);
+//         console.error(`   Waiting 2 seconds and retrying...`);
+//         setTimeout(() => {
+//           server.listen(env.port);
+//         }, 2000);
+//       } else {
+//         console.error('❌ Server error:', error);
+//         process.exit(1);
+//       }
+//     });
+
+//     // Handle graceful shutdown
+//     process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+//     process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+//   } catch (error) {
+//     console.error('❌ Failed to start server:', error);
+//     process.exit(1);
+//   }
+// };
+
 const start = async () => {
   try {
-    await connectDb();
-    agendaInstance = await startAgenda();
-
-    server.listen(env.port, () => {
+    server.listen(env.port, '0.0.0.0', () => {
       console.log(`🚀 API ready on port ${env.port}`);
     });
 
@@ -56,7 +84,7 @@ const start = async () => {
         console.error(`❌ Port ${env.port} is already in use.`);
         console.error(`   Waiting 2 seconds and retrying...`);
         setTimeout(() => {
-          server.listen(env.port);
+          server.listen(env.port, '0.0.0.0');
         }, 2000);
       } else {
         console.error('❌ Server error:', error);
@@ -64,9 +92,18 @@ const start = async () => {
       }
     });
 
+    // Connect to MongoDB after the server starts listening
+    await connectDb();
+    console.log('✅ MongoDB connected');
+
+    // Start Agenda after MongoDB connection
+    agendaInstance = await startAgenda();
+    console.log('✅ Agenda started');
+
     // Handle graceful shutdown
     process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
     process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
   } catch (error) {
     console.error('❌ Failed to start server:', error);
     process.exit(1);
