@@ -140,7 +140,7 @@ const LoginPage = () => {
                 </>
               ) : (
                 <>
-                  <span></span>
+                 
                   <span className="material-symbols-outlined">login</span>
                 </>
               )}
